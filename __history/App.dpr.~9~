@@ -1,0 +1,35 @@
+program App;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils,
+  Horse,
+  Horse.Jhonson,
+  Horse.CORS,
+  App.Controller.Entity in 'Src\Controller\Entity\App.Controller.Entity.pas',
+  App.Controller.Interfaces in 'Src\Controller\App.Controller.Interfaces.pas',
+  App.Controller in 'Src\Controller\App.Controller.pas',
+  App.Model.Connection.Firedac in 'Src\Model\Connection\Firedac\App.Model.Connection.Firedac.pas',
+  App.Model.Connection.Factory in 'Src\Model\Connection\App.Model.Connection.Factory.pas',
+  App.Model.Connection.Interfaces in 'Src\Model\Connection\App.Model.Connection.Interfaces.pas',
+  App.Model.DAO.Interfaces in 'Src\Model\DAO\App.Model.DAO.Interfaces.pas',
+  App.Model.DAO in 'Src\Model\DAO\App.Model.DAO.pas',
+  App.Model.Entity.Users in 'Src\Model\Entity\App.Model.Entity.Users.pas',
+  App.Model.Entity.Config in 'Src\Model\Entity\App.Model.Entity.Config.pas',
+  App.Router.Config in 'Src\Router\App.Router.Config.pas',
+  App.Model.Entity.Produto in 'Src\Model\Entity\App.Model.Entity.Produto.pas',
+  App.Router.Cardapio in 'Src\Router\App.Router.Cardapio.pas',
+  App.Model.Entity.Pedido_Item in 'Src\Model\Entity\App.Model.Entity.Pedido_Item.pas';
+
+begin
+  THorse
+    .Use(Jhonson)
+    .Use(CORS);
+
+  App.Router.Config.Registry;
+
+  THorse.Listen(9000);
+end.

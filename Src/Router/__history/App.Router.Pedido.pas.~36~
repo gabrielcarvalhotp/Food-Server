@@ -1,0 +1,71 @@
+unit App.Router.Pedido;
+
+interface
+
+procedure Registry;
+
+implementation
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Generics.Collections,
+  System.JSON,
+  Horse,
+  GBJSON.Interfaces,
+  App.Controller.Interfaces,
+  App.Controller,
+  App.Model.Entity.Pedidos;
+
+procedure Registry;
+begin
+  THorse
+
+    .Get('/pedidos',
+    procedure(AReq: THorseRequest; ARes: THorseResponse; ANext: TNextProc)
+    var
+      LController: IController;
+      LJSONArray: TJSONArray;
+      LJSON: TJSONValue;
+    begin
+      LController := TController.New;
+      LJSONArray := LController.Pedido.Model.Find;
+
+      for LJSON in LJSONArray do
+      begin
+        LController.Pedido_Item.Model.DAO.Find('ID_PEDIDO', LJSON.GetValue<Integer>('id_pedido', 0));
+        TJSONObject(LJSON).AddPair('itens', LController.Pedido_Item.Model.DataSetAsJSONArray);
+      end;
+
+      ARes.Send<TJSONArray>(LJSONArray).Status(THTTPStatus.OK);
+    end)
+
+    .Post('/pedidos',
+    procedure(AReq: THorseRequest; ARes: THorseResponse; ANext: TNextProc)
+    var
+      LController: IController;
+      LObj: TPedido;
+      LGen: Integer;
+    begin
+      LController := TController.New;
+
+      LObj := TPedido.Create;
+      try
+        LGen := LController.Pedido.Model.Sequence('GEN_PEDIDO_ID');
+        LObj := TGBJSONDefault.Serializer<TPedido>.JsonObjectToObject(AReq.Body<TJSONObject>);
+        LObj.Id_Pedido := LGen;
+        LController.Pedido.Model.DAO.Insert(LObj);
+
+        for var Item in LObj.Itens do
+        begin
+          Item.Id_Pedido := LObj.Id_Pedido;
+          LController.Pedido_Item.Model.DAO.Insert(Item);
+        end;
+
+      finally
+        LObj.DisposeOf;
+      end;
+    end)
+end;
+
+end.

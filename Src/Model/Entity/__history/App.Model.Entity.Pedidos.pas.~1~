@@ -1,0 +1,46 @@
+unit App.Model.Entity.Pedidos;
+
+interface
+
+type
+  TPedido = class
+  private
+    FId_Pedido: Integer;
+    FId_Usuario: Integer;
+    FEndereco: string;
+    FFone: string;
+    FVl_Subtotal: Double;
+    FVl_Entrega: Double;
+    FVl_Total: Double;
+    FDt_Pedido: TDateTime;
+    FStatus: string;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Id_Pedido: Integer read FId_Pedido write FId_Pedido;
+    property Id_Usuario: Integer read FId_Usuario write FId_Usuario;
+    property Endereco: string read FEndereco write FEndereco;
+    property Fone: string read FFone write FFone;
+    property Vl_Subtotal: Double read FVl_Subtotal write FVl_Subtotal;
+    property Vl_Entrega: Double read FVl_Entrega write FVl_Entrega;
+    property Vl_Total: Double read FVl_Total write FVl_Total;
+    property Dt_Pedido: TDateTime read FDt_Pedido write FDt_Pedido;
+    property Status: string read FStatus write FStatus;
+  end;
+
+implementation
+
+{ TPedido }
+
+constructor TPedido.Create;
+begin
+
+end;
+
+destructor TPedido.Destroy;
+begin
+
+  inherited;
+end;
+
+end.

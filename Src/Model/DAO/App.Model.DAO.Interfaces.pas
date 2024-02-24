@@ -1,0 +1,26 @@
+unit App.Model.DAO.Interfaces;
+
+interface
+
+uses
+  System.JSON,
+  SimpleInterface,
+  SimpleDAO;
+
+type
+  IModelDAO<T: class> = interface
+    ['{58B6A66F-CCC0-45A3-BD04-94A60366574A}']
+    function Sequence(AValue: string): Integer;
+    function Find: TJSONArray; overload;
+    function Find(const AID: string): TJSONObject; overload;
+    function Insert(const AJSONObject: TJSONObject): TJSONObject;
+    function Update(const AJSONObject: TJSONObject): TJSONObject;
+    function Delete(AField: string; aValue: string): TJSONObject;
+    function DAO: ISimpleDAO<T>;
+    function DataSetAsJSONArray: TJSONArray;
+    function DataSetAsJSONObject: TJSONObject;
+  end;
+
+implementation
+
+end.

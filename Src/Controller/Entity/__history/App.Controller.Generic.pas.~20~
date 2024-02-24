@@ -1,0 +1,44 @@
+unit App.Controller.Generic;
+
+interface
+
+uses
+  App.Controller.Interfaces,
+  App.Controller.Generic.Interfaces;
+
+type
+  TControllerGeneric<T: class> = class(TInterfacedObject, IControllerGeneric<T>)
+  private
+    FParent: IController;
+    FModel: IModelDAO<T>;
+  public
+    constructor Create(AParent: IController);
+    destructor Destroy; override;
+    class function New(AParent: IController): IControllerGeneric<T>;
+    function This: IModelDAO<T>;
+    function &End: IController;
+  end;
+
+implementation
+
+uses
+  App.Model.DAO;
+
+constructor TControllerGeneric<T>.Create(AParent: IController);
+begin
+  FParent := AParent;
+  FModel := TModelDAO<T>.New;
+end;
+
+destructor TControllerGeneric<T>.Destroy;
+begin
+  inherited;
+
+end;
+
+class function TControllerGeneric<T>.New(AParent: IController): IControllerGeneric<T>;
+begin
+  result := self.Create(AParent);
+end;
+
+end.

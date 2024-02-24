@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/01/16 20:08:12.000.924,=C:\Users\gabri\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/02/15 21:42:40.000.716,=C:\Users\gabri\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/02/21 21:08:08.806,C:\Desenvolvimento\Delphi\99 Coders\Food Server\App.dproj=C:\Users\gabri\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/02/21 21:12:51.498,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Controller\Entity\App.Controller.Entity.pas</Transaction>
+    <Transaction>2024/02/21 21:13:00.918,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Controller\App.Controller.Interfaces.pas</Transaction>
+    <Transaction>2024/02/21 21:13:00.965,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Controller\App.Controller.pas</Transaction>
+    <Transaction>2024/02/21 21:13:24.614,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Model\Connection\Firedac\App.Model.Connection.Firedac.pas</Transaction>
+    <Transaction>2024/02/21 21:13:31.563,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Model\Connection\App.Model.Connection.Factory.pas</Transaction>
+    <Transaction>2024/02/21 21:13:31.593,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Model\Connection\App.Model.Connection.Interfaces.pas</Transaction>
+    <Transaction>2024/02/21 21:14:23.128,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Model\DAO\App.Model.DAO.Interfaces.pas</Transaction>
+    <Transaction>2024/02/21 21:14:23.161,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Model\DAO\App.Model.DAO.pas</Transaction>
+    <Transaction>2024/02/21 21:14:34.910,=C:\Desenvolvimento\Delphi\99 Coders\Food Server\Src\Model\Entity\App.Model.Entity.Users.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,43 @@
+unit App.Model.Entity.Pedido_Item;
+
+interface
+
+uses
+  SimpleAttributes;
+
+type
+  TPedido_Item = class
+  private
+    FId_Item: Integer;
+    FId_Pedido: Integer;
+    FId_Produto: Integer;
+    FQtd: Double;
+    FVl_Unitario: Double;
+    FVl_Total: Double;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Id_Item: Integer read FId_Item write FId_Item;
+    property Id_Pedido: Integer read FId_Pedido write FId_Pedido;
+    property Id_Produto: Integer read FId_Produto write FId_Produto;
+    property Qtd: Double read FQtd write FQtd;
+    property Vl_Unitario: Double read FVl_Unitario write FVl_Unitario;
+    property Vl_Total: Double read FVl_Total write FVl_Total;
+  end;
+
+implementation
+
+{ TPedido_Item }
+
+constructor TPedido_Item.Create;
+begin
+
+end;
+
+destructor TPedido_Item.Destroy;
+begin
+
+  inherited;
+end;
+
+end.

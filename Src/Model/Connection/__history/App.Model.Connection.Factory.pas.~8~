@@ -1,0 +1,47 @@
+unit App.Model.Connection.Factory;
+
+interface
+
+uses
+  App.Model.Connection.Interfaces;
+
+type
+  TModelConnectionFactory = class(TInterfacedObject, IModelConnectionFactory)
+  private
+    FConnection: IModelConnection;
+  public
+    { public }
+    constructor Create;
+    destructor Destroy; override;
+    class function New: IModelConnectionFactory;
+    function Connection: IModelConnection;
+  end;
+
+implementation
+
+{ TModelConnectionFactory }
+
+function TModelConnectionFactory.Connection: IModelConnection;
+begin
+{$IFDEF FIREDAC}
+
+{$ENDIF}
+end;
+
+constructor TModelConnectionFactory.Create;
+begin
+
+end;
+
+destructor TModelConnectionFactory.Destroy;
+begin
+  inherited;
+
+end;
+
+class function TModelConnectionFactory.New: IModelConnectionFactory;
+begin
+  result := self.Create;
+end;
+
+end.

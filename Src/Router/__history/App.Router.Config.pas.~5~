@@ -1,0 +1,22 @@
+unit App.Router.Config;
+
+interface
+
+procedure Registry;
+
+implementation
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Generics.Collections,
+  Horse,
+  App.Controller,
+  App.Model.Entity.Config;
+
+procedure Registry;
+begin
+
+end;
+
+end.

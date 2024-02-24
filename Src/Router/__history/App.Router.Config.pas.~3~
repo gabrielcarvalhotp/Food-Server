@@ -1,0 +1,12 @@
+unit App.Router.Config;
+
+interface
+
+procedure Registry;
+
+implementation
+
+uses
+  System.
+
+    end.

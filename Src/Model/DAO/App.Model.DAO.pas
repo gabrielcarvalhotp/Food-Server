@@ -1,0 +1,145 @@
+unit App.Model.DAO;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.JSON,
+  Data.DB,
+  App.Model.DAO.Interfaces,
+  App.Model.Connection.Interfaces,
+  SimpleInterface;
+
+type
+  TModelDAO<T: class, constructor> = class(TInterfacedObject, IModelDAO<T>)
+  private
+    FDataSource: TDataSource;
+    FFactory: IModelConnectionFactory;
+    FConn: iSimpleQuery;
+    FDAO: iSimpleDAO<T>;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: IModelDAO<T>;
+    function Sequence(AValue: string): Integer;
+    function Find: TJSONArray; overload;
+    function Find(const AID: string): TJSONObject; overload;
+    function Find(aKey: String; aValue: Variant): TJSONArray; overload;
+    function Insert(const AJSONObject: TJSONObject): TJSONObject;
+    function Update(const AJSONObject: TJSONObject): TJSONObject;
+    function Delete(AField: string; aValue: string): TJSONObject;
+    function DAO: iSimpleDAO<T>;
+    function DataSetAsJSONArray: TJSONArray;
+    function DataSetAsJSONObject: TJSONObject;
+  end;
+
+implementation
+
+{ TModelDAO }
+
+uses
+  App.Model.Connection.Factory,
+  SimpleQueryFiredac,
+  SimpleDAO,
+  DataSet.Serialize,
+  GBJSON.Helper,
+  GBJSON.Interfaces;
+
+constructor TModelDAO<T>.Create;
+begin
+  FDataSource := TDataSource.Create(nil);
+  FFactory := TModelConnectionFactory.New;
+  FConn := TSimpleQueryFiredac.New(FFactory.This.Connect);
+  FDAO := TSimpleDAO<T>.New(FConn).DataSource(FDataSource);
+
+  TGBJSONConfig.GetInstance.CaseDefinition(TCaseDefinition.cdLower);
+  TDataSetSerializeConfig.GetInstance.CaseNameDefinition := TCaseNameDefinition.cndLower;
+end;
+
+function TModelDAO<T>.DAO: iSimpleDAO<T>;
+begin
+  Result := FDAO;
+end;
+
+function TModelDAO<T>.DataSetAsJSONArray: TJSONArray;
+begin
+  Result := FDataSource.DataSet.ToJSONArray;
+end;
+
+function TModelDAO<T>.DataSetAsJSONObject: TJSONObject;
+begin
+  Result := FDataSource.DataSet.ToJSONObject;
+end;
+
+function TModelDAO<T>.Delete(AField, aValue: string): TJSONObject;
+begin
+  FDAO.Delete(AField, aValue);
+  Result := FDataSource.DataSet.ToJSONObject;
+end;
+
+destructor TModelDAO<T>.Destroy;
+begin
+  inherited;
+
+end;
+
+function TModelDAO<T>.Find(aKey: String; aValue: Variant): TJSONArray;
+begin
+  FDAO.Find(aKey, aValue);
+  Result := FDataSource.DataSet.ToJSONArray;
+end;
+
+function TModelDAO<T>.Find: TJSONArray;
+begin
+  FDAO.Find(False);
+  Result := FDataSource.DataSet.ToJSONArray;
+end;
+
+function TModelDAO<T>.Find(const AID: string): TJSONObject;
+begin
+  FDAO.Find(StrToInt(AID));
+  Result := FDataSource.DataSet.ToJSONObject;
+end;
+
+function TModelDAO<T>.Insert(const AJSONObject: TJSONObject): TJSONObject;
+var
+  LEntity: T;
+begin
+  LEntity := T.Create;
+  try
+    TGBJSONDefault.Serializer<T>(False).JsonObjectToObject(LEntity, AJSONObject);
+    LEntity.fromJSONObject(AJSONObject);
+    FDAO.Insert(LEntity);
+    Result := FDataSource.DataSet.ToJSONObject;
+  finally
+    LEntity.Free;
+  end;
+end;
+
+class function TModelDAO<T>.New: IModelDAO<T>;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAO<T>.Sequence(AValue: string): Integer;
+begin
+  Result := FFactory.This.Connect.ExecSQLScalar('SELECT GEN_ID(' + AValue + ', 1) FROM RDB$DATABASE');
+end;
+
+function TModelDAO<T>.Update(const AJSONObject: TJSONObject): TJSONObject;
+var
+  LEntity: T;
+begin
+  LEntity := T.Create;
+  try
+    TGBJSONDefault.Serializer<T>(False).JsonObjectToObject(LEntity, AJSONObject);
+    LEntity.fromJSONObject(AJSONObject);
+    FDAO.Update(LEntity);
+    Result := FDataSource.DataSet.ToJSONObject;
+  finally
+    LEntity.Free;
+  end;
+end;
+
+end.

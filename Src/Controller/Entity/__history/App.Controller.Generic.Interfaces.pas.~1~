@@ -1,0 +1,7 @@
+unit App.Controller.Generic.Interfaces;
+
+interface
+
+implementation
+
+end.

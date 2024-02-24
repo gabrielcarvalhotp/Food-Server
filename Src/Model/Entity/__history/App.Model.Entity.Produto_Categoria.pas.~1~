@@ -1,0 +1,21 @@
+unit App.Model.Entity.Produto_Categoria;
+
+interface
+
+type
+  TProduto_Categoria = class
+  private
+    FId_Categoria: Integer;
+    FCategoria: string;
+    FOrdem: Integer;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Id_Categoria: Integer read FId_Categoria write FId_Categoria;
+    property Categoria: string read FCategoria write FCategoria;
+    property Ordem: Integer read FOrdem write FOrdem;
+  end;
+
+implementation
+
+end.

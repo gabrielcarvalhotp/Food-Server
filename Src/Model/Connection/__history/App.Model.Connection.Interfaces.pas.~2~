@@ -1,0 +1,13 @@
+unit App.Model.Connection.Interfaces;
+
+interface
+
+type
+  IModelConnection = interface
+    ['{FA56BE09-DBB0-49DF-BBC8-22209AEE6EDA}']
+    function Connect: IModelConnection;
+  end;
+
+implementation
+
+end.

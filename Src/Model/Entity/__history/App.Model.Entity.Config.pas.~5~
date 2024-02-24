@@ -1,0 +1,19 @@
+unit App.Model.Entity.Config;
+
+interface
+
+type
+  TConfig = class
+  private
+    FId_Config: Type;
+    FVl_Entrega: Double;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Id_Config: Type read FId_Config write FId_Config;
+    property Vl_Entrega: Double read FVl_Entrega write FVl_Entrega;
+  end;
+
+implementation
+
+end.

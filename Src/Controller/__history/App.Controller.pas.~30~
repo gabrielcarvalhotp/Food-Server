@@ -1,0 +1,79 @@
+unit App.Controller;
+
+interface
+
+uses
+  App.Controller.Interfaces,
+  App.Model.Entity.Users,
+  App.Model.Entity.Config,
+  App.Model.Entity.Pedido_Item,
+  App.Model.Entity.Produto;
+
+type
+  TController = class(TInterfacedObject, IController)
+  private
+    FControllerEntityConfig: IControllerEntity<TConfig>;
+    FControllerEntityProduto: IControllerEntity<TProduto>;
+    FControllerEntityPedido_Item: IControllerEntity<TPedido_Item>;
+    FControllerEntityUsers: IControllerEntity<TUsers>;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: IController;
+    function Config: IControllerEntity<TConfig>;
+    function Produto: IControllerEntity<TProduto>;
+    function Produto_Categoria: IControllerEntity<TProduto_Categoria>;
+    function Pedido_Item: IControllerEntity<TPedido_Item>;
+    function Users: IControllerEntity<TUsers>;
+  end;
+
+implementation
+
+uses
+  App.Controller.Entity;
+
+function TController.Config: IControllerEntity<TConfig>;
+begin
+  if not Assigned(FControllerEntityConfig) then
+    FControllerEntityConfig := TControllerEntity<TConfig>.New(Self);
+  result := FControllerEntityConfig;
+end;
+
+constructor TController.Create;
+begin
+
+end;
+
+destructor TController.Destroy;
+begin
+  inherited;
+
+end;
+
+class function TController.New: IController;
+begin
+  result := Self.Create;
+end;
+
+function TController.Pedido_Item: IControllerEntity<TPedido_Item>;
+begin
+  if not Assigned(FControllerEntityPedido_Item) then
+    FControllerEntityPedido_Item := TControllerEntity<TPedido_Item>.New(Self);
+  result := FControllerEntityPedido_Item;
+end;
+
+function TController.Produto: IControllerEntity<TProduto>;
+begin
+  if not Assigned(FControllerEntityProduto) then
+    FControllerEntityProduto := TControllerEntity<TProduto>.New(Self);
+  result := FControllerEntityProduto;
+end;
+
+function TController.Users: IControllerEntity<TUsers>;
+begin
+  if not Assigned(FControllerEntityUsers) then
+    FControllerEntityUsers := TControllerEntity<TUsers>.New(Self);
+  result := FControllerEntityUsers;
+end;
+
+end.

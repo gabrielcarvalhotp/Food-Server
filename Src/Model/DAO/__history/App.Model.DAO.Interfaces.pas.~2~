@@ -1,0 +1,12 @@
+unit App.Model.DAO.Interfaces;
+
+interface
+
+type
+  IModelDAO<T: class> = interface
+    ['{58B6A66F-CCC0-45A3-BD04-94A60366574A}']
+  end;
+
+implementation
+
+end.

@@ -1,0 +1,12 @@
+unit App.Controller.Generic.Interfaces;
+
+interface
+
+type
+  IControllerGeneric<T: class> = interface
+    ['{5244AFFE-CC4B-4B0E-A19F-620BA2F18E32}']
+  end;
+
+implementation
+
+end.

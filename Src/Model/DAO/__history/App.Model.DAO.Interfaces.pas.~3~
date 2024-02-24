@@ -1,0 +1,21 @@
+unit App.Model.DAO.Interfaces;
+
+interface
+
+type
+  IModelDAO<T: class> = interface
+    ['{58B6A66F-CCC0-45A3-BD04-94A60366574A}']
+    function Find: TJsonArray; overload;
+    function Find(const aID: String): TJsonObject; overload;
+    function Insert(const aJsonObject: TJsonObject): TJsonObject;
+    function Update(const aJsonObject: TJsonObject): TJsonObject;
+    function Delete(aField: String; aValue: String): TJsonObject;
+    function DAO: ISimpleDAO<T>;
+    function DataSetAsJsonArray: TJsonArray;
+    function DataSetAsJsonObject: TJsonObject;
+    function DataSetToStream: String;
+  end;
+
+implementation
+
+end.
