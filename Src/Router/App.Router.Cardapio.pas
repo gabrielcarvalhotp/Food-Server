@@ -14,6 +14,7 @@ uses
   Horse,
   App.Controller.Interfaces,
   App.Controller,
+  App.Model.Entity.Produto_Categoria,
   App.Model.Entity.Produto;
 
 procedure Registry;
@@ -28,12 +29,12 @@ begin
       LJSON: TJSONValue;
     begin
       LController := TController.New;
-      LJSONArray := LController.Produto.Model.Find;
+      LJSONArray := LController.Produto_Categoria.Model.Find;
 
       for LJSON in LJSONArray do
       begin
-        LController.Produto_Categoria.Model.DAO.Find('ID_CATEGORIA', LJSON.GetValue<Integer>('id_categoria', 0));
-        TJSONObject(LJSON).AddPair('categoria', LController.Produto_Categoria.Model.DataSetAsJSONArray);
+        LController.Produto.Model.DAO.Find('ID_CATEGORIA', LJSON.GetValue<Integer>('id_categoria', 0));
+        TJSONObject(LJSON).AddPair('produtos', LController.Produto.Model.DataSetAsJSONArray);
       end;
 
       ARes.Send<TJSONArray>(LJSONArray).Status(THTTPStatus.OK);
